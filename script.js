@@ -1,6 +1,6 @@
 // Auto-save to localStorage
 const SUPABASE_URL = 'https://sntqufxijlkupaukqrsb.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNudHF1ZnhpamxrdXBhdWtxcnNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5OTAzODcsImV4cCI6MjA5NjU2NjM4N30.BdJNlnESsci_fpO05gC1iFQ9aMPsbpUUYFEG8ynUrpQ';
+const SUPABASE_KEY = 'sb_publishable_s9HrFsSYVFntOCWFrAFP5A_vfIRfItW';
 const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 // ── Auth gate ──
