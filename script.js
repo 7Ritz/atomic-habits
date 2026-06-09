@@ -1,5 +1,7 @@
 // Auto-save to localStorage
-const STORAGE_KEY = 'atomic-habits-data';
+const SUPABASE_URL = 'https://sntqufxijlkupaukqrsb.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNudHF1ZnhpamxrdXBhdWtxcnNiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA5OTAzODcsImV4cCI6MjA5NjU2NjM4N30.BdJNlnESsci_fpO05gC1iFQ9aMPsbpUUYFEG8ynUrpQ';
+const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 function cardTemplate(id) {
   return `
@@ -52,8 +54,12 @@ function collectData() {
   }));
 }
 
-function save() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(collectData()));
+async function save() {
+  const data = collectData();
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); // keep as fallback
+  await db.from('habit_cards').upsert(
+    data.map((d, i) => ({ id: i + 1, name: d.name, quadrants: JSON.stringify(d.quadrants) }))
+  );
 }
 
 function attachCardListeners(card) {
@@ -68,14 +74,41 @@ function attachCardListeners(card) {
   });
 }
 
-function restoreData() {
+async function restoreData() {
+  try {
+    // Try Supabase first
+    const { data, error } = await db.from('habit_cards').select('*').order('id');
+    if (data && data.length) {
+      const container = document.querySelector('.container');
+      const addBtn    = document.getElementById('addCardBtn');
+      const extraCount = Math.min(data.length - 4, 4);
+      for (let i = 0; i < extraCount; i++) {
+        const id = 5 + i;
+        const temp = document.createElement('div');
+        temp.innerHTML = cardTemplate(id);
+        const newCard = temp.firstElementChild;
+        container.insertBefore(newCard, addBtn.parentElement);
+        attachCardListeners(newCard);
+      }
+      updateGridCols();
+      const cards = document.querySelectorAll('.habit-card');
+      data.forEach((row, i) => {
+        if (!cards[i]) return;
+        cards[i].querySelector('.habit-name').value = row.name || '';
+        const quadrants = JSON.parse(row.quadrants || '[]');
+        const areas = cards[i].querySelectorAll('textarea');
+        quadrants.forEach((val, j) => { if (areas[j]) areas[j].value = val; });
+      });
+      return;
+    }
+  } catch(e) {}
+
+  // Fall back to localStorage
   try {
     const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
     if (!saved) return;
     const container = document.querySelector('.container');
     const addBtn    = document.getElementById('addCardBtn');
-
-    // If saved data has more than 4 cards, recreate the extras
     const extraCount = Math.min(saved.length - 4, 4);
     for (let i = 0; i < extraCount; i++) {
       const id = 5 + i;
@@ -86,7 +119,6 @@ function restoreData() {
       attachCardListeners(newCard);
     }
     updateGridCols();
-
     const cards = document.querySelectorAll('.habit-card');
     saved.forEach((data, i) => {
       if (!cards[i]) return;
@@ -255,8 +287,30 @@ restoreData();
   }
 
   let events = {};
-  try { events = JSON.parse(localStorage.getItem(CAL_STORAGE)) || {}; } catch(e) {}
-  function saveEvents() { localStorage.setItem(CAL_STORAGE, JSON.stringify(events)); }
+try { events = JSON.parse(localStorage.getItem(CAL_STORAGE)) || {}; } catch(e) {}
+
+// Overwrite with Supabase data if available
+(async () => {
+  const { data } = await db.from('calendar_events').select('*');
+  if (data && data.length) {
+    events = {};
+    data.forEach(row => { events[row.key] = { name: row.name, colour: row.colour }; });
+    localStorage.setItem(CAL_STORAGE, JSON.stringify(events)); // sync localStorage too
+    build(); // redraw the calendar with the loaded data
+  }
+})();
+function saveEvents() {
+  localStorage.setItem(CAL_STORAGE, JSON.stringify(events)); // keep as fallback
+  db.from('calendar_events').delete().neq('key', '')   // clear old data
+    .then(() => {
+      const rows = Object.entries(events).map(([key, ev]) => ({
+        key,
+        name: ev.name,
+        colour: ev.colour
+      }));
+      if (rows.length) db.from('calendar_events').insert(rows);
+    });
+}
 
 // ── Undo / Redo stacks ──
   const undoStack = [];
