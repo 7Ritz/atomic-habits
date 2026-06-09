@@ -24,6 +24,30 @@ async function checkAuth() {
 
 checkAuth();
 
+// Temporary debug — remove once working
+async function debugSupabase() {
+  console.log('1. Checking session...');
+  const { data: { session }, error: sessionError } = await db.auth.getSession();
+  console.log('Session:', session);
+  console.log('Session error:', sessionError);
+
+  console.log('2. Testing habit_cards read...');
+  const { data: cards, error: cardsError } = await db.from('habit_cards').select('*');
+  console.log('Cards data:', cards);
+  console.log('Cards error:', cardsError);
+
+  console.log('3. Testing calendar_events read...');
+  const { data: cal, error: calError } = await db.from('calendar_events').select('*');
+  console.log('Calendar data:', cal);
+  console.log('Calendar error:', calError);
+
+  console.log('4. Testing a write...');
+  const { error: writeError } = await db.from('habit_cards').upsert({ id: 0, name: 'test', quadrants: '[]' });
+  console.log('Write error:', writeError);
+}
+
+debugSupabase();
+
 function cardTemplate(id) {
   return `
    <div class="habit-card" id="card-${id}">
