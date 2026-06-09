@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atomic Habits</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&family=Felipa&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">  
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header>
+    <h1>Atomic Habits</h1>
+    <p class="subtitle">The Science of Habit — Habit Tracker</p>
+  </header>
+  <hr>
+
+  <div style="position:relative" class="container">
+    <!-- 4 habit cards -->
+    <div class="habit-card" id="card-1">
+      <div class="habit-label">
+        <span>Habit</span>
+        <input type="text" class="habit-name" placeholder="Name your habit…">
+      </div>
+      <div class="loop-grid">
+        <div class="quadrant top-left">
+          <span class="quad-label">Cue</span>
+          <textarea placeholder="What triggers it?"></textarea>
+          <span class="num">1</span>
+        </div>
+        <div class="quadrant top-right">
+          <span class="quad-label">Craving</span>
+          <textarea placeholder="What do you want?"></textarea>
+          <span class="num">2</span>
+        </div>
+        <div class="quadrant bottom-left">
+          <span class="quad-label">Reward</span>
+          <textarea placeholder="What do you get?"></textarea>
+          <span class="num">4</span>
+        </div>
+        <div class="quadrant bottom-right">
+          <span class="quad-label">Response</span>
+          <textarea placeholder="What do you do?"></textarea>
+          <span class="num">3</span>
+        </div>
+        <div class="loop-arrows">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 A40 40 0 1 1 10 50" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <polygon points="10,44 6,54 16,51" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="habit-card" id="card-2">
+      <button class="card-trash" title="Clear card" aria-label="Clear card">
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+  </svg>
+</button>
+      <div class="habit-label">
+        <span>Habit</span>
+        <input type="text" class="habit-name" placeholder="Name your habit…">
+      </div>
+      <div class="loop-grid">
+        <div class="quadrant top-left">
+          <span class="quad-label">Cue</span>
+          <textarea placeholder="What triggers it?"></textarea>
+          <span class="num">1</span>
+        </div>
+        <div class="quadrant top-right">
+          <span class="quad-label">Craving</span>
+          <textarea placeholder="What do you want?"></textarea>
+          <span class="num">2</span>
+        </div>
+        <div class="quadrant bottom-left">
+          <span class="quad-label">Reward</span>
+          <textarea placeholder="What do you get?"></textarea>
+          <span class="num">4</span>
+        </div>
+        <div class="quadrant bottom-right">
+          <span class="quad-label">Response</span>
+          <textarea placeholder="What do you do?"></textarea>
+          <span class="num">3</span>
+        </div>
+        <div class="loop-arrows">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 A40 40 0 1 1 10 50" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <polygon points="10,44 6,54 16,51" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="habit-card" id="card-3">
+      <button class="card-trash" title="Clear card" aria-label="Clear card">
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+  </svg>
+</button>
+      <div class="habit-label">
+        <span>Habit</span>
+        <input type="text" class="habit-name" placeholder="Name your habit…">
+      </div>
+      <div class="loop-grid">
+        <div class="quadrant top-left">
+          <span class="quad-label">Cue</span>
+          <textarea placeholder="What triggers it?"></textarea>
+          <span class="num">1</span>
+        </div>
+        <div class="quadrant top-right">
+          <span class="quad-label">Craving</span>
+          <textarea placeholder="What do you want?"></textarea>
+          <span class="num">2</span>
+        </div>
+        <div class="quadrant bottom-left">
+          <span class="quad-label">Reward</span>
+          <textarea placeholder="What do you get?"></textarea>
+          <span class="num">4</span>
+        </div>
+        <div class="quadrant bottom-right">
+          <span class="quad-label">Response</span>
+          <textarea placeholder="What do you do?"></textarea>
+          <span class="num">3</span>
+        </div>
+        <div class="loop-arrows">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 A40 40 0 1 1 10 50" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <polygon points="10,44 6,54 16,51" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="habit-card" id="card-4">
+      <button class="card-trash" title="Clear card" aria-label="Clear card">
+  <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+  </svg>
+</button>
+      <div class="habit-label">
+        <span>Habit</span>
+        <input type="text" class="habit-name" placeholder="Name your habit…">
+      </div>
+      <div class="loop-grid">
+        <div class="quadrant top-left">
+          <span class="quad-label">Cue</span>
+          <textarea placeholder="What triggers it?"></textarea>
+          <span class="num">1</span>
+        </div>
+        <div class="quadrant top-right">
+          <span class="quad-label">Craving</span>
+          <textarea placeholder="What do you want?"></textarea>
+          <span class="num">2</span>
+        </div>
+        <div class="quadrant bottom-left">
+          <span class="quad-label">Reward</span>
+          <textarea placeholder="What do you get?"></textarea>
+          <span class="num">4</span>
+        </div>
+        <div class="quadrant bottom-right">
+          <span class="quad-label">Response</span>
+          <textarea placeholder="What do you do?"></textarea>
+          <span class="num">3</span>
+        </div>
+        <div class="loop-arrows">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10 A40 40 0 1 1 10 50" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <polygon points="10,44 6,54 16,51" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div class="add-card-btn">
+    <button id="addCardBtn" title="Add habit card">+</button>
+  </div>
+</div>
+
+  <!-- Four Laws of Behavior Change -->
+  <section class="laws-section">
+    <hr class="laws-hr">
+    <div class="laws-header">
+      <h2>The Four Laws of Behavior Change</h2>
+    </div>
+    <div class="laws-table-wrap">
+      <table class="laws-table">
+        <thead>
+          <tr>
+            <th class="col-loop">The Habit Loop</th>
+            <th class="col-good">
+              <span class="th-icon good">↑</span>
+              Building Good Habits
+            </th>
+            <th class="col-bad">
+              <span class="th-icon bad">↓</span>
+              Breaking Bad Habits
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="loop-step"><span class="step-num">1</span> Cue</td>
+            <td class="law good-law">
+              <span class="law-order">The First Law</span>
+              <span class="law-name">Make It Obvious</span>
+            </td>
+            <td class="law bad-law">
+              <span class="law-order">The First Law Inverted</span>
+              <span class="law-name">Make It Invisible</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="loop-step"><span class="step-num">2</span> Craving</td>
+            <td class="law good-law">
+              <span class="law-order">The Second Law</span>
+              <span class="law-name">Make It Attractive</span>
+            </td>
+            <td class="law bad-law">
+              <span class="law-order">The Second Law Inverted</span>
+              <span class="law-name">Make It Unattractive</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="loop-step"><span class="step-num">3</span> Response</td>
+            <td class="law good-law">
+              <span class="law-order">The Third Law</span>
+              <span class="law-name">Make It Easy</span>
+            </td>
+            <td class="law bad-law">
+              <span class="law-order">The Third Law Inverted</span>
+              <span class="law-name">Make It Difficult</span>
+            </td>
+          </tr>
+          <tr>
+            <td class="loop-step"><span class="step-num">4</span> Reward</td>
+            <td class="law good-law">
+              <span class="law-order">The Fourth Law</span>
+              <span class="law-name">Make It Satisfying</span>
+            </td>
+            <td class="law bad-law">
+              <span class="law-order">The Fourth Law Inverted</span>
+              <span class="law-name">Make It Unsatisfying</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Quote Slider -->
+  <section class="quotes-section">
+    <hr class="laws-hr">
+    <div class="quotes-wrap">
+      <button class="quote-btn prev" aria-label="Previous quote"><</button>
+      <div class="quote-stage">
+        <div class="quote-track" id="quoteTrack">
+          <blockquote class="quote-slide">"The process of building habits is actually the process of becoming yourself"</blockquote>
+          <blockquote class="quote-slide">"When you fall in love with the process rather than the product, you don't have to wait to give yourself permission to be happy. You can be satisfied any time your system is running."</blockquote>
+          <blockquote class="quote-slide">"Win enough to keep progressing. Lose enough to keep learning."</blockquote>
+          <blockquote class="quote-slide">"If you keep showing up, you'll almost certainly break through — but probably not in the way you expected or intended. You need enough persistence to keep working and enough flexibility to enjoy success when it comes in a different form than you imagined."</blockquote>
+          <blockquote class="quote-slide">"The feeling of progress is one of the best feelings of all. This is true even when progress is small."</blockquote>
+          <blockquote class="quote-slide">"All big things come from small beginnings. The seed of every habit is a single, tiny decision."</blockquote>
+          <blockquote class="quote-slide">"Can my current habits carry me to the desired future?"</blockquote>
+          <blockquote class="quote-slide">"When changing your habits means challenging the tribe, change is unattractive. When change means fitting in, change is very attractive."</blockquote>
+        </div>
+      </div>
+      <button class="quote-btn next" aria-label="Next quote">></button>
+    </div>
+    <div class="quote-dots" id="quoteDots"></div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+     Habit Tracker — Weekly Hourly Calendar
+     ══════════════════════════════════════ -->
+<section class="calendar-section">
+  <hr class="laws-hr">
+  <div class="laws-header">
+    <h2>Habit Tracker</h2>
+    <br>
+    <p style="font-style:italic; opacity:0.5; font-size:1rem; letter-spacing:0.08em; margin-top:-8px;">Use +, − and = to signify energy levels.</p>
+  </div>
+
+  <div class="calendar-wrap">
+    <table class="calendar-table">
+      <thead>
+        <tr>
+          <th class="time-col">Time</th>
+          <th>Mon</th>
+          <th>Tues</th>
+          <th>Weds</th>
+          <th>Thurs</th>
+          <th>Fri</th>
+          <th>Sat</th>
+          <th>Sun</th>
+        </tr>
+      </thead>
+      <tbody id="calendarBody"><!-- generated by script.js --></tbody>
+    </table>
+  </div>
+
+  <div class="calendar-export-wrap">
+  <!-- Import -->
+  <div class="export-picker" id="importPicker">
+    <button type="button" class="export-trigger" id="importTrigger">
+      Import <span class="chev">▾</span>
+    </button>
+    <div class="export-menu import-menu">
+      <button type="button" data-import="csv">.csv</button>
+      <button type="button" data-import="xlsx">.xlsx</button>
+      <button type="button" data-import="txt">.txt</button>
+    </div>
+  </div>
+  <!-- hidden file input -->
+  <input type="file" id="importFileInput" accept=".csv,.xlsx,.txt" style="display:none">
+
+  <!-- Export -->
+  <div class="export-picker" id="exportPicker">
+    <button type="button" class="export-trigger" id="exportTrigger">
+      Export <span class="chev">▾</span>
+    </button>
+    <div class="export-menu">
+      <button type="button" data-format="csv">.csv</button>
+      <button type="button" data-format="xlsx">.xlsx</button>
+      <button type="button" data-format="txt">.txt</button>
+    </div>
+  </div>
+</div>
+
+</section>
+
+<!-- Event Modal -->
+<div class="event-modal-overlay" id="eventModalOverlay">
+  <div class="event-modal">
+    <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+    <h3>Event</h3>
+    <p class="modal-slot" id="modalSlot"></p>
+
+    <label class="modal-field">
+      <span>Name</span>
+      <input type="text" id="eventName" placeholder="e.g. Morning run" autocomplete="off">
+    </label>
+
+    <div class="modal-field">
+  <span>Colour</span>
+  <div class="colour-picker" id="eventColour" data-value="cue">
+    <button type="button" class="colour-trigger">
+      <span class="colour-swatch" data-colour="cue"></span>
+    </button>
+    <div class="colour-menu">
+      <button type="button" class="colour-option" data-value="cue"      aria-label="Cue">
+        <span class="colour-swatch" data-colour="cue"></span>
+      </button>
+      <button type="button" class="colour-option" data-value="craving"  aria-label="Craving">
+        <span class="colour-swatch" data-colour="craving"></span>
+      </button>
+      <button type="button" class="colour-option" data-value="response" aria-label="Response">
+        <span class="colour-swatch" data-colour="response"></span>
+      </button>
+      <button type="button" class="colour-option" data-value="reward"   aria-label="Reward">
+        <span class="colour-swatch" data-colour="reward"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+    <div class="modal-actions">
+      <button class="modal-btn delete" id="eventDelete">Delete</button>
+      <button class="modal-btn save" id="eventSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- CLI Toggle -->
+<button class="cli-toggle" id="cliToggle" aria-label="Open CLI">
+  <img src="cli-logo.png" alt="" class="cli-logo">
+</button>
+<!-- CLI Panel -->
+<div class="cli-panel" id="cliPanel" role="dialog" aria-label="Command Line">
+  <div class="cli-header">
+    <span class="cli-title">&gt; habit-cli &nbsp;<span class="cli-sub">v1.0</span></span>
+    <button class="cli-close" id="cliClose" aria-label="Close CLI">×</button>
+  </div>
+  <div class="cli-output" id="cliOutput"></div>
+  <form class="cli-input-row" id="cliForm" autocomplete="off">
+    <span class="cli-prompt">$</span>
+    <input type="text" class="cli-input" id="cliInput" spellcheck="false" placeholder="type 'help' for commands">
+  </form>
+</div>
+
+  <script src="script.js"></script>
+</body>
+
+
+
+
+
+  <div class="bg-gradient"></div>
+  <div class="glass"></div>
+  <div class="particles" id="particles"></div>
+
+</html>
